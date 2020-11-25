@@ -1,8 +1,16 @@
-import { Router } from 'express';
-import ClientController from './controllers/ClientController';
+import { Router } from 'express'
+import ClientController from './controllers/ClientController'
+import UserController from './controllers/UserController'
 
-const routes = Router();
+const routes = Router()
 
-routes.get('/clients', ClientController.index);
+// Client Routes
+routes.get('/clients', ClientController.index)
+routes.post('/clients', ClientController.newClient)
+routes.delete('/clients/:id', ClientController.deleteClient)
 
-export default routes;
+// User Routes
+routes.get('/users', UserController.index)
+routes.post('/users', UserController.newUser)
+
+export default routes
