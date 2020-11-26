@@ -1,10 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose'
+import bcrypt from 'bcrypt'
 
 interface IUser extends Document {
   name: string,
   email: string,
   document: string,
   password: string
+  createdAt: Date
 }
 
 const UserSchema = new Schema({
@@ -26,7 +28,20 @@ const UserSchema = new Schema({
     type: String,
     require: true,
     select: false
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 })
 
-export default mongoose.model<IUser>('User', UserSchema)
+// Erro by type Schema
+UserSchema.pre('save', async function (next) {
+  const hash = await bcrypt.hash(this.password, 10)
+  this.password = hash
+  next()
+})
+
+const User = mongoose.model<IUser>('User', UserSchema)
+
+export default User

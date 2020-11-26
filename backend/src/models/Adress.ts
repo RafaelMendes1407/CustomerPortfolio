@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose'
 
 interface IAdress extends Document{
-  id: string,
+  ClientId: string,
   city: string,
   street: string,
   number: number,
@@ -11,7 +11,7 @@ interface IAdress extends Document{
 }
 
 const AdressSchema = new Schema({
-  id: {
+  ClientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
     require: true

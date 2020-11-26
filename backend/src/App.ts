@@ -1,5 +1,6 @@
 import express from 'express'
 import routes from './routes'
+import authRoutes from './controllers/AuthController'
 
 class App {
   public express: express.Application;
@@ -21,6 +22,7 @@ class App {
 
   private routes (): void {
     this.express.use(routes)
+    this.express.use(authRoutes)
   }
 }
 

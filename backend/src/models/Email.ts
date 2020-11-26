@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose'
 
 interface IEmail extends Document{
-  id: string,
+  ClientId: string,
   email: string,
   domain: string
 }
 
 const EmailSchema = new Schema({
-  id: {
+  ClientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
     require: true

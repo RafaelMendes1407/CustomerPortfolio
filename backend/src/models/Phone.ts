@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose'
 
 interface IPhone extends Document{
-  id: string,
+  ClientId: string,
   phone: string,
   areaCode: number
 }
 
 const PhoneSchema = new Schema({
-  id: {
+  ClientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
     require: true
