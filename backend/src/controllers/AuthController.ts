@@ -1,8 +1,11 @@
 import { Router } from 'express'
 import ClientController from './ClientController'
 import UserController from './UserController'
-import ContactController from './ContactController'
 import authMiddleware from '../middlewares/auth'
+
+import PhoneController from './contact/PhoneController'
+import EmailController from './contact/EmailController'
+import AdressController from './contact/AdressController'
 
 const routes = Router()
 routes.use(authMiddleware)
@@ -17,12 +20,22 @@ routes.delete('/clients/:id', ClientController.deleteClient)
 routes.get('/users', UserController.index)
 routes.delete('/users/:id', UserController.deleteUser)
 
-// Contact Routes
-routes.get('/phone', ContactController.getPhone)
-routes.get('/email', ContactController.getEmail)
-routes.get('/adress', ContactController.getAdress)
-routes.delete('/phone/:id', ContactController.deletePhone)
-routes.delete('/email/:id', ContactController.deleteEmail)
-routes.delete('/adress/:id', ContactController.deleteAdress)
+// Contact Routes: Phone
+routes.get('/phone', PhoneController.getPhone)
+routes.post('/phone', PhoneController.addPhone)
+routes.delete('/phone/:id', PhoneController.deletePhone)
+routes.put('/phone/:id', PhoneController.updatePhone)
+
+// Contact Routes: Email
+routes.get('/email', EmailController.getEmail)
+routes.delete('/email/:id', EmailController.deleteEmail)
+routes.post('/email', EmailController.addEmail)
+routes.put('/email/:id', EmailController.updateEmail)
+
+// Contact Routes: Adress
+routes.delete('/adress/:id', AdressController.deleteAdress)
+routes.get('/adress', AdressController.getAdress)
+routes.post('/adress', AdressController.addAdress)
+routes.put('/adress/:id', AdressController.updateAdress)
 
 export default routes

@@ -5,7 +5,3 @@ export interface IClient extends Document{
   document: string,
   createdBy: string
 }
-
-export interface IIdClient extends IClient{
-  _id: string
-}

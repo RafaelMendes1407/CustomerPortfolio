@@ -1,6 +1,8 @@
 import { Request, Response } from 'express'
 
-import ContactController from './ContactController'
+import PhoneController from './contact/PhoneController'
+import EmailController from './contact/EmailController'
+import AdressController from './contact/AdressController'
 
 import Client from '../models/Client'
 import Phone from '../models/Phone'
@@ -15,11 +17,11 @@ class ClientController {
 
   public async getClient (req: Request, res: Response): Promise<Response> {
     const id = req.params.id
-    const client = await Client.find({ _id: id })
+    const client = await Client.findById({ _id: id })
     const clientId = JSON.parse(JSON.stringify(client))
-    const phones = await ContactController.getPhoneByClient(clientId[0]._id)
-    const email = await ContactController.getEmailByClient(clientId[0]._id)
-    const adress = await ContactController.getAdressByClient(clientId[0]._id)
+    const phones = await PhoneController.getPhoneByClient(clientId._id) // TODO
+    const email = await EmailController.getEmailByClient(clientId._id)
+    const adress = await AdressController.getAdressByClient(clientId._id)
     const clientInfo = {
       client: client,
       phone: phones,
@@ -36,7 +38,7 @@ class ClientController {
       const newClient = await Client.create({
         name: data.client.name,
         document: data.client.document,
-        createdBy: userId
+        createdBy: userId.toString()
       })
       const id = newClient._id
       await Phone.create({
