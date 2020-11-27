@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import { IEmail } from './interface/IEmail'
 
 const EmailSchema = new Schema({
-  ClientId: {
+  clientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
     require: true

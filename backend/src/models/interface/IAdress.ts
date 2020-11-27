@@ -1,7 +1,7 @@
 import { Document } from 'mongoose'
 
 export interface IAdress extends Document{
-  ClientId: string,
+  clientId: string,
   city: string,
   street: string,
   number: number,

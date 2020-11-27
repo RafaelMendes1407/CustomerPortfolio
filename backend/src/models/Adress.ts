@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import { IAdress } from './interface/IAdress'
 
 const AdressSchema = new Schema({
-  ClientId: {
+  clientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
     require: true

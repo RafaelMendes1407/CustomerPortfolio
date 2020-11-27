@@ -15,10 +15,13 @@ routes.get('/clients', ClientController.index)
 routes.get('/clients/:id', ClientController.getClient)
 routes.post('/clients', ClientController.newClient)
 routes.delete('/clients/:id', ClientController.deleteClient)
+routes.put('/clients/:id', ClientController.updateClient)
 
 // User Routes
 routes.get('/users', UserController.index)
 routes.delete('/users/:id', UserController.deleteUser)
+routes.put('/users/:id', UserController.updateUser)
+routes.put('/users/pass/:id', UserController.changePass)
 
 // Contact Routes: Phone
 routes.get('/phone', PhoneController.getPhone)

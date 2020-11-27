@@ -1,7 +1,7 @@
 import { Document } from 'mongoose'
 
 export interface IPhone extends Document{
-  ClientId: string,
+  clientId: string,
   phone: string,
   areaCode: number
 }

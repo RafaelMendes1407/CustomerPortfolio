@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { IAdress } from '../../models/interface/IAdress'
 
 import Adress from '../../models/Adress'
+import Client from '../../models/Client'
 
 class AdressController {
   public async getAdress (req: Request, res: Response): Promise<Response> {
@@ -13,6 +14,12 @@ class AdressController {
   public async deleteAdress (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.params.id
+      const clientAdress = await Adress.findById(id)
+      const userId = req.userId
+      const client = await Client.findById(clientAdress?.clientId)
+      if (userId.toString().trim() !== client?.createdBy.toString().trim()) {
+        return res.status(401).send({ error: 'unauthorized' })
+      }
       await Adress.findByIdAndDelete(id)
       return res.sendStatus(200)
     } catch (error) {
@@ -21,7 +28,7 @@ class AdressController {
   }
 
   public async getAdressByClient (id: string): Promise<IAdress[]> {
-    const adress = await Adress.find({ ClientId: id })
+    const adress = await Adress.find({ clientId: id })
     return adress
   }
 
@@ -41,7 +48,7 @@ class AdressController {
         return res.status(400).send({ error: 'Mandatory fields not filled' })
       }
       const newAdress = await Adress.create({
-        ClientId: clientId,
+        clientId: clientId,
         number: number,
         complement: complement,
         neighbourhood: neighbourhood,
@@ -56,6 +63,13 @@ class AdressController {
   }
 
   public async updateAdress (req: Request, res: Response): Promise<Response> {
+    const id = req.params.id
+    const clientAdress = await Adress.findById(id)
+    const userId = req.userId
+    const client = await Client.findById(clientAdress?.clientId)
+    if (userId.toString().trim() !== client?.createdBy.toString().trim()) {
+      return res.status(401).send({ error: 'unauthorized' })
+    }
     const {
       complement,
       neighbourhood,
@@ -64,7 +78,6 @@ class AdressController {
       city,
       country
     } = req.body
-    const id = req.params.id
     try {
       if (!id || !complement || !street || !number || !city || !country || !neighbourhood) {
         return res.status(400).send({ error: 'Mandatory fields not filled' })
