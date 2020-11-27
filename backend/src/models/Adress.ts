@@ -1,14 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose'
-
-interface IAdress extends Document{
-  ClientId: string,
-  city: string,
-  street: string,
-  number: number,
-  neighbourhood: string,
-  complement: string,
-  country: string
-}
+import mongoose, { Schema } from 'mongoose'
+import { IAdress } from './interface/IAdress'
 
 const AdressSchema = new Schema({
   ClientId: {

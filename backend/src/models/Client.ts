@@ -1,10 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
-interface IClient extends Document{
-  name: string,
-  document: string,
-  createdBy: string
-}
+import { IClient } from './interface/IClient'
 
 const ClientSchema = new Schema({
   name: { type: String, require: true },

@@ -1,10 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose'
-
-interface IEmail extends Document{
-  ClientId: string,
-  email: string,
-  domain: string
-}
+import mongoose, { Schema } from 'mongoose'
+import { IEmail } from './interface/IEmail'
 
 const EmailSchema = new Schema({
   ClientId: {

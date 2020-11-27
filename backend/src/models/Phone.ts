@@ -1,10 +1,5 @@
-import mongoose, { Document, Schema } from 'mongoose'
-
-interface IPhone extends Document{
-  ClientId: string,
-  phone: string,
-  areaCode: number
-}
+import mongoose, { Schema } from 'mongoose'
+import { IPhone } from './interface/IPhone'
 
 const PhoneSchema = new Schema({
   ClientId: {

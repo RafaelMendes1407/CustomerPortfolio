@@ -22,7 +22,7 @@ const UserSchema = new Schema({
   document: {
     type: String,
     require: true,
-    unique: [true, 'User has already been registered']
+    unique: true
   },
   password: {
     type: String,

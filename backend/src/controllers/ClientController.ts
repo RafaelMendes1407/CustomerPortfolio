@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 
+import ContactController from './ContactController'
+
 import Client from '../models/Client'
 import Phone from '../models/Phone'
 import Email from '../models/Email'
@@ -9,6 +11,22 @@ class ClientController {
   public async index (req: Request, res: Response): Promise<Response> {
     const clients = await Client.find()
     return res.json(clients)
+  }
+
+  public async getClient (req: Request, res: Response): Promise<Response> {
+    const id = req.params.id
+    const client = await Client.find({ _id: id })
+    const clientId = JSON.parse(JSON.stringify(client))
+    const phones = await ContactController.getPhoneByClient(clientId[0]._id)
+    const email = await ContactController.getEmailByClient(clientId[0]._id)
+    const adress = await ContactController.getAdressByClient(clientId[0]._id)
+    const clientInfo = {
+      client: client,
+      phone: phones,
+      email: email,
+      adress: adress
+    }
+    return res.json(clientInfo)
   }
 
   public async newClient (req: Request, res: Response): Promise<Response> {
