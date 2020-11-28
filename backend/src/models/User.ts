@@ -17,7 +17,8 @@ const UserSchema = new Schema<IUser>({
   email: {
     type: String,
     require: true,
-    lowercase: true
+    lowercase: true,
+    unique: true
   },
   document: {
     type: String,
@@ -36,7 +37,7 @@ const UserSchema = new Schema<IUser>({
 })
 
 // Erro by type Schema
-UserSchema.pre('save', async function (next) {
+UserSchema.pre<IUser>('save', async function (next) {
   const hash = await bcrypt.hash(this.password, 10)
   this.password = hash
   next()
