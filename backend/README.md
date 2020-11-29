@@ -4,7 +4,7 @@ Projeto backend de uma Carteira de Clientes
 
 ## Download das Dependências
 
-Com o NPM na backend do projeto digite no terminal.
+Com o NPM na pasta backend do projeto digite no terminal.
 
 ```bash
 npm i
