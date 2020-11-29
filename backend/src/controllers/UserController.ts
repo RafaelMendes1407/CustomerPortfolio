@@ -17,7 +17,7 @@ class UserController {
       const user = await User.create(req.body)
       const resUser = JSON.parse(JSON.stringify(user))
       delete resUser.password
-      return res.json(resUser)
+      return res.status(201).json(resUser)
     } catch (error) {
       return res.status(400).send(error)
     }

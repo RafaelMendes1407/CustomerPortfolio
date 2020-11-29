@@ -38,7 +38,6 @@ class ClientController {
 
   public async newClient (req: Request, res: Response): Promise<Response> {
     const userId = req.userId
-    console.log(userId)
     try {
       const data = req.body
       const newClient = await Client.create({
@@ -67,7 +66,7 @@ class ClientController {
         complement: adress.complement,
         country: adress.country
       })
-      return res.send({ newClient })
+      return res.status(201).json(newClient)
     } catch (error) {
       return res.status(400).send(error)
     }

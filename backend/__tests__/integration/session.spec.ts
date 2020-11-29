@@ -1,10 +1,14 @@
+/* eslint-disable no-undef */
 import App from '../../src/App'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const request = require('supertest')
 
+let id = ''
+let token = ''
+
 describe('Users tests', () => {
   it('should Register a user', async () => {
-    const user = await request(App)
+    const response = await request(App)
       .post('/users')
       .send({
         name: 'test',
@@ -12,7 +16,8 @@ describe('Users tests', () => {
         document: '4132456789',
         password: '123456'
       })
-    expect(user.status).toBe(200)
+    id = response.body._id
+    expect(response.status).toBe(201)
   })
 
   it('should get a auth token', async () => {
@@ -22,6 +27,7 @@ describe('Users tests', () => {
         email: 'teste@teste.com',
         password: '123456'
       })
+    token = response.body.token
     expect(response.body).toHaveProperty('token')
   })
 
@@ -30,5 +36,12 @@ describe('Users tests', () => {
       .get('/client')
 
     expect(response.status).toBe(401)
+  })
+
+  it('Should delete a user', async () => {
+    const response = await request(App)
+      .delete(`/users/${id}`)
+      .set('Authorization', 'bearer ' + token)
+    expect(response.status).toBe(200)
   })
 })
