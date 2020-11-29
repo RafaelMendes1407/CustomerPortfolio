@@ -23,6 +23,12 @@ class UserController {
     }
   }
 
+  public async getUser (req: Request, res: Response): Promise<Response> {
+    const { email } = req.body
+    const user = await User.findOne({ email: email })
+    return res.send(user)
+  }
+
   public async deleteUser (req: Request, res: Response): Promise<Response> {
     try {
       const id = req.params.id
@@ -59,7 +65,7 @@ class UserController {
       if (req.userId !== id) { return res.status(401).send({ error: 'unauthorized' }) }
       const user = await User.findById(id).select('+password')
 
-      if (!await bcrypt.compare(lastPass, user.password)) {
+      if (!await bcrypt.compare(lastPass, user!.password)) {
         return res.status(400).send({ error: 'Invalid password' })
       }
 

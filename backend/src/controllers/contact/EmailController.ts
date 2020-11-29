@@ -16,7 +16,7 @@ class EmailController {
       const id = req.params.id
       const clientEmail = await Email.findById(id)
       const userId = req.userId
-      const client = await Client.findById(clientEmail.clientId)
+      const client = await Client.findById(clientEmail!.clientId)
       if (userId.toString().trim() !== client?.createdBy.toString().trim()) {
         return res.status(401).send({ error: 'unauthorized' })
       }

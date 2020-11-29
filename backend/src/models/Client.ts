@@ -6,9 +6,8 @@ const ClientSchema = new Schema({
   name: { type: String, require: true },
   document: { type: String, require: true, unique: true }, // CPF ou CNPJ
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    require: true
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 
