@@ -15,10 +15,8 @@ function authMiddleware (req: Request, res: Response, next: NextFunction): Respo
 
   jwt.verify(token, authConfig.secret, (err, decoded) => {
     if (err) { return res.status(401).send({ error: 'Token Invalid' }) }
-    if (decoded) {
-      const { id } = (decoded as any)
-      req.userId = id
-    }
+    const { id } = (decoded as any)
+    req.userId = id
     return next()
   })
 }

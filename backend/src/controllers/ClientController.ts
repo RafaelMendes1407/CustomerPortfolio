@@ -38,6 +38,7 @@ class ClientController {
 
   public async newClient (req: Request, res: Response): Promise<Response> {
     const userId = req.userId
+    console.log(userId)
     try {
       const data = req.body
       const newClient = await Client.create({
@@ -87,7 +88,7 @@ class ClientController {
       await Adress.deleteMany({ clientId: id })
       return res.sendStatus(200)
     } catch (error) {
-      return res.status(400).send(error)
+      return res.status(400).send({ error: 'Could not perform the deletion' })
     }
   }
 

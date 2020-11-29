@@ -2,11 +2,6 @@ import mongoose, { Schema } from 'mongoose'
 import { IPhone } from './interface/IPhone'
 
 const PhoneSchema = new Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
-
   clientId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Client',
