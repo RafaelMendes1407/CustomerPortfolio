@@ -2,13 +2,21 @@ import mongoose, { Schema } from 'mongoose'
 import { IPhone } from './interface/IPhone'
 
 const PhoneSchema = new Schema({
-  clientId: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client',
-    require: true
+    required: true
   },
-  phone: { type: String, require: true },
-  areaCode: { type: Number, require: true }
+  phone: [{
+    clientId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Client',
+      require: true
+    },
+    phones: [{
+      phone: { type: String, require: true },
+      areaCode: { type: Number, require: true }
+    }]
+  }]
 })
 
 export default mongoose.model<IPhone>('Phone', PhoneSchema)
