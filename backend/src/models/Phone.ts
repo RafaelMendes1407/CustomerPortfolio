@@ -6,17 +6,16 @@ const PhoneSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
-  phone: [{
-    clientId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Client',
-      require: true
-    },
-    phones: [{
-      phone: { type: String, require: true },
-      areaCode: { type: Number, require: true }
-    }]
-  }]
+
+  clientId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Client',
+    require: true
+  },
+
+  phone: { type: String, require: true },
+  areaCode: { type: Number, require: true }
+
 })
 
 export default mongoose.model<IPhone>('Phone', PhoneSchema)
